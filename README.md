@@ -2,6 +2,7 @@
 A Mini M-Banking Apps that build with C++ 
 It's has a several feature like
 <ol>
+<li>Register process to continue the next part of the code, you can now input your own username and password</li>
 <li>Login process with blocking system if user input the wrong username or password 3 times a row</li>
 <li>Deposit your balance with a limit on it</li>
 <li>Withdraw your balance and notification if your balance are not enough</li>
