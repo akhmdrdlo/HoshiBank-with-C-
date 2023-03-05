@@ -9,56 +9,66 @@ void bank();
 void menu();
 
 int pilih,limit;
-string uname,pass;
+
+string uname[1000];
+string pass[1000];
 int main(){
-	cout<<"Welcome to HoshiBank!!\n"
-	<<"How can we help you??"<<endl;
+	cout<<"Welcome to HoshiBank!!\n";
 	garis();
-	cout<<"1.Login to our service\n"
-	<<"2.Register new account(ON PROGRESS)\n"
-	<<"3.Quit"<<endl;
-	cin>>pilih;
-	switch(pilih){
-		case 1:
-			login();
-		case 2:
-			regis();
-		case 3:
-			cout<<"Thank you for using our services!!"<<endl;
-			return 0;
-	}
+	regis();
+	cout<<"Thank you for using our services!!"<<endl;
 }
 
 void garis(){
 	cout<<"==================================="<<endl;
 }
 void regis(){
-		
+	int cont;
+	string user,password;
+	regist:
+	cout<<"Register Yourself to Use our Services!!\n";
+	garis();
+	cout<<"Insert your Username : ";
+	getline(cin,uname[0]);
+	cout<<"Insert your Password : ";
+	getline(cin,pass[0]);
+	cout<<"You've entered "<<uname[0]<<" as Username and "<<pass[0]<<" as your Password\n";
+	cout<<"Do you want to continue\n"
+	<<"1.Yes			2.No\n";
+	cin>>cont;
+	if (cont == 1){
+		system("CLS");
+		login();
+	} else {
+		goto regist;
+	}
 }
 
 void login(){
+	string user,password;
 	int chance = 2;
 	relog:
 	do {
 	cout<<"Please Login First to Experience our Services!!"<<endl;
 	garis();
 	cout<<"Enter your username : "; //input akhmad
-	getline(cin,uname);
-	getline(cin,uname); //for decoy to enter your username
+	getline(cin,user);
+	getline(cin,user); //for decoy to enter your username
 	cout<<"Enter your password : "; //input akhmad
-	getline(cin,pass);
-	if(uname == "akhmad" && pass == "akhmad"){
-		cout<<"Successfully Login!! Hello "<<uname<<endl;
-		system("CLS");
-		menu();
-	}
-	if(chance != 0){
-		cout<<"You have "<<chance--<<" more chance left\n\n"<<endl;
-		goto relog;
-	} else {
-		cout<<"You're being blocked out from our system!!"<<endl;
-		break;
-	}
+	getline(cin,password);
+			if(user==uname[0] && password==pass[0]){
+					cout<<"Successfully Login!! Hello "<<uname[0]<<endl;
+					system("CLS");
+					menu();
+			} else {		
+				if(chance != 0){
+					cout<<"You have "<<chance--<<" more chance left\n\n"<<endl;
+					goto relog;
+				} else {
+					cout<<"You're being blocked out from our system!!"<<endl;
+					break;
+				}
+			}
 	}while (true);
 }
 
@@ -69,7 +79,7 @@ void menu(){
 	int balance = 100;
 	// Print cmd
 	transaction:
-	cout<<"Welcome!!\n"
+	cout<<"Welcome, "<<uname[0]<<"!!\n"
 	<<"=============================\n";
 	balance = balance;
 	cout<<"Balance on your account : "<<balance<<endl;
@@ -124,6 +134,7 @@ void menu(){
 	}
 	//print final balance
 	int cont;
+	string password;
 	cout<<"=============================\n";
 	cout<<"Your final balance are : "<<balance<<endl;
 	cout<<"=============================\n";
@@ -133,8 +144,9 @@ void menu(){
 	if (cont == 1){
 		cout<<"=============================\n\n";
 		cout<<"Input Password :"; //input akhmad if you want to continue your transaction
-		cin>>pass;
-		if (pass == "akhmad"){
+		getline(cin,password);
+		getline(cin,password);
+		if (password == pass[0]){
 			system("CLS");
 			goto transaction;
 		} 
