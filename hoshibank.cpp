@@ -12,11 +12,32 @@ int pilih,limit;
 
 string uname[1000];
 string pass[1000];
+int a = 0;
+int d;
+string log = "false";
 int main(){
 	cout<<"Welcome to HoshiBank!!\n";
 	garis();
-	regis();
-	cout<<"Thank you for using our services!!"<<endl;
+	cout<<"1.Register your account!!\n"
+	<<"2.Login to use our services!!\n"
+	<<"3.Quit\n"
+	<<"Pick your option! (input 1/2)"<<endl;
+	cin>>pilih;
+	switch(pilih){ //choose your option between register,login, or quit the session
+		case 1:
+			system("cls");
+			regis();
+			break;
+		case 2:
+			system("cls");
+			login();
+			break;
+		case 3:
+			cout<<"Thank you for using our services!!"<<endl;
+			return 0;
+			
+	}
+	
 }
 
 void garis(){
@@ -29,46 +50,68 @@ void regis(){
 	cout<<"Register Yourself to Use our Services!!\n";
 	garis();
 	cout<<"Insert your Username : ";
-	getline(cin,uname[0]);
+	cin>>uname[a];
 	cout<<"Insert your Password : ";
-	getline(cin,pass[0]);
-	cout<<"You've entered "<<uname[0]<<" as Username and "<<pass[0]<<" as your Password\n";
+	cin>>pass[a];
+	cout<<"You've entered "<<uname[a]<<" as Username and "<<pass[a]<<" as your Password\n";
 	cout<<"Do you want to continue\n"
 	<<"1.Yes			2.No\n";
 	cin>>cont;
-	if (cont == 1){
+		for (int c=0; c<a; c++){ //to find if your username has been used or not
+			if(uname[a] == uname[c]){
+				cout<<"Username Has Been Used\n";
+				getch();
+				goto regist;
+			}
+		}
+		a = a+1; //to add a new array for the next registration
+		cout<<"\nYour account has been Registered!!";
+		getch();
 		system("CLS");
 		login();
-	} else {
-		goto regist;
-	}
 }
 
 void login(){
 	string user,password;
 	int chance = 2;
+	system("CLS");
 	relog:
+	if (a<1){ //if there is no username and password registered first, you will get this notification
+		cout<<"Uhh ohh,Looks like we don't have any account to proceed'\n"
+		<<"Please create an account first!!"<<endl;
+		getch();
+		system("CLS");
+		regis();
+	}
 	do {
-	cout<<"Please Login First to Experience our Services!!"<<endl;
-	garis();
-	cout<<"Enter your username : "; //input akhmad
-	getline(cin,user);
-	getline(cin,user); //for decoy to enter your username
-	cout<<"Enter your password : "; //input akhmad
-	getline(cin,password);
-			if(user==uname[0] && password==pass[0]){
-					cout<<"Successfully Login!! Hello "<<uname[0]<<endl;
-					system("CLS");
-					menu();
-			} else {		
-				if(chance != 0){
-					cout<<"You have "<<chance--<<" more chance left\n\n"<<endl;
-					goto relog;
-				} else {
-					cout<<"You're being blocked out from our system!!"<<endl;
-					break;
-				}
+		garis();
+		cout<<"Please Login First to Experience our Services!!"<<endl;
+		garis();
+		cout<<"Enter your username : "; //input your username
+		cin>>user;
+		cout<<"Enter your password : "; //input your pass
+		cin>>password;
+		for (int b=0; b<a; b++){
+			if (user == uname[b] && password == pass[b]){
+				log = "true"; //to access menu,you should have this on "true"
+				d = b; 
 			}
+		}
+		if (log == "true"){
+		cout<<"\nLogin Success!! Hello, "<<uname[d]<<endl;
+		log = "false"; //to prevent the next login would be an error
+		getch();
+		system("cls");
+		menu();
+		} else {		
+			if(chance != 0){ //if the chance still not on 0, program will loop
+				cout<<"You have "<<chance--<<" more chance left\n\n"<<endl;
+				goto relog;
+			} else { //if the chance has been run out
+				cout<<"You're being blocked out from our system!!"<<endl;
+				break;
+			}
+		}
 	}while (true);
 }
 
@@ -79,7 +122,8 @@ void menu(){
 	int balance = 100;
 	// Print cmd
 	transaction:
-	cout<<"Welcome, "<<uname[0]<<"!!\n"
+	garis();
+	cout<<"Welcome, "<<uname[d]<<"!!\n"
 	<<"=============================\n";
 	balance = balance;
 	cout<<"Balance on your account : "<<balance<<endl;
@@ -143,14 +187,17 @@ void menu(){
 	cin>>cont;
 	if (cont == 1){
 		cout<<"=============================\n\n";
-		cout<<"Input Password :"; //input akhmad if you want to continue your transaction
-		getline(cin,password);
-		getline(cin,password);
-		if (password == pass[0]){
+		cout<<"Input Password :"; //input your last password if you want to continue your transaction
+		cin>>password;
+		if (password == pass[d]){
 			system("CLS");
 			goto transaction;
 		} 
 	} else {
 		cout<<"Thank you,Please come back later!!"<<endl;
+		cout<<"Press Any Button To Log Out";
+		getch();
+		system("CLS");
+		main();
 	}
 }
