@@ -2,6 +2,7 @@
 A Mini M-Banking Apps that build with C++ 
 It's has a several feature like :
 <ol>
+<li>Neverending process in one session,except you decided to end the session by choosing 'Quit' on the homepage</li>
 <li>Register process to continue the next part of the code, you can now input your own username and password</li>
 <li>You can now adding multiple account on one session!!</li>
 <li>Login process with blocking system if user input the wrong username or password 3 times a row</li>
