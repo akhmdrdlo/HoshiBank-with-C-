@@ -25,7 +25,7 @@ int main(){
 	cin>>pilih;
 	switch(pilih){ //choose your option between register,login, or quit the session
 		case 1:
-			system("cls");
+			system("cls"); //this is for closing the current cmd and starting the new one
 			regis();
 			break;
 		case 2:
@@ -138,6 +138,7 @@ void menu(){
 	switch(command){
 		case 0: //Quit
 			cout << "See you later!" <<endl;
+			break;
 		case 1: //Deposit
 			cout<<"Enter deposit amount: ";
 			cin>>money;
